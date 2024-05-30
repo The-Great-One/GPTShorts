@@ -1,6 +1,6 @@
 # YouTube Shorts Generator
 
-![Shorts Generator Logo](Logo.webp)
+<img src="Logo.webp" alt="Shorts Generator Logo" width="200">
 
 Welcome to the YouTube Shorts Generator repository! This project leverages AI tools to automate the creation of YouTube Shorts, making it easy to produce engaging and high-quality short videos with minimal effort.
 
