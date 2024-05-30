@@ -8,7 +8,7 @@ from openai import OpenAI
 client = OpenAI(api_key = os.environ['OPENAI_API_KEY'])
 
 # Path to SRT files
-srt_files = glob.glob('Generated_Files/text_audio/out_*.srt')
+srt_files = glob.glob('Generated_Files/out_*.srt')
 
 # Function to analyze SRT file
 def analyze_srt(file_path):
