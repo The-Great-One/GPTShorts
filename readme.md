@@ -1,5 +1,7 @@
 # YouTube Shorts Generator
 
+![Shorts Generator Logo](Logo.webp)
+
 Welcome to the YouTube Shorts Generator repository! This project leverages AI tools to automate the creation of YouTube Shorts, making it easy to produce engaging and high-quality short videos with minimal effort.
 
 ## Features
@@ -23,7 +25,7 @@ Welcome to the YouTube Shorts Generator repository! This project leverages AI to
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/YouTube-Shorts-Generator.git
+    git clone https://github.com/The-Great-One/GPTShorts
     cd YouTube-Shorts-Generator
     ```
 

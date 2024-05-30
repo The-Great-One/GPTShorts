@@ -11,7 +11,7 @@ def write_srt(subtitles: List[srt.Subtitle], file_path: str):
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(srt.compose(subtitles))
 
-def split_srt(file_path: str, parts: int = 4):
+def splitter(file_path = "Generated_Files/out.srt", parts: int = 4):
     # Read the SRT file
     subtitles = read_srt(file_path)
     total_subtitles = len(subtitles)
@@ -25,6 +25,3 @@ def split_srt(file_path: str, parts: int = 4):
         output_file = f"{os.path.splitext(file_path)[0]}_part{i + 1}.srt"
         write_srt(part_subtitles, output_file)
         print(f"Part {i + 1} written to {output_file}")
-
-# Example usage
-split_srt('text_audio/out.srt')

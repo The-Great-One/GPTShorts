@@ -8,7 +8,7 @@ from openai import OpenAI
 client = OpenAI(api_key = os.environ['OPENAI_API_KEY'])
 
 # Path to SRT files
-srt_files = glob.glob('text_audio/out_*.srt')
+srt_files = glob.glob('Generated_Files/text_audio/out_*.srt')
 
 # Function to analyze SRT file
 def analyze_srt(file_path):
@@ -61,33 +61,34 @@ By following these guidelines, you will identify segments that maximize engageme
 
     return chat_completion.choices[0].message.content
 
-# Process each SRT file
-all_timestamps = []
-for srt_file in srt_files:
-    print(f"Analyzing {srt_file}")
-    result = analyze_srt(srt_file)
-    all_timestamps.append(result)
+def GPT_Analyser():
+    # Process each SRT file
+    all_timestamps = []
+    for srt_file in srt_files:
+        print(f"Analyzing {srt_file}")
+        result = analyze_srt(srt_file)
+        all_timestamps.append(result)
 
-# Save raw results to JSON file
-with open('raw_data.json', 'w') as f:
-    json.dump(all_timestamps, f, indent=4)
+    # Save raw results to JSON file
+    with open('Generated_Files/raw_data.json', 'w') as f:
+        json.dump(all_timestamps, f, indent=4)
 
-# Clean and reformat the JSON data
-cleaned_data = []
-for item in all_timestamps:
-    try:
-        item = item.replace("json", "").replace("```", "").strip()
-        # Ensure the string is properly formatted JSON
-        if item.startswith("[") and item.endswith("]"):
-            segments = ast.literal_eval(item)
-            cleaned_data.extend(segments)
-        else:
-            print(f"Skipping invalid JSON format: {item}")
-    except Exception as e:
-        print(f"Error processing item: {item}, Error: {e}")
+    # Clean and reformat the JSON data
+    cleaned_data = []
+    for item in all_timestamps:
+        try:
+            item = item.replace("json", "").replace("```", "").strip()
+            # Ensure the string is properly formatted JSON
+            if item.startswith("[") and item.endswith("]"):
+                segments = ast.literal_eval(item)
+                cleaned_data.extend(segments)
+            else:
+                print(f"Skipping invalid JSON format: {item}")
+        except Exception as e:
+            print(f"Error processing item: {item}, Error: {e}")
 
-# Save cleaned data to JSON file
-with open('Generated_Files/data.json', 'w') as f:
-    json.dump(cleaned_data, f, indent=4)
+    # Save cleaned data to JSON file
+    with open('Generated_Files/data.json', 'w') as f:
+        json.dump(cleaned_data, f, indent=4)
 
-print("Data has been processed and saved to data.json")
+    print("Data has been processed and saved to data.json")

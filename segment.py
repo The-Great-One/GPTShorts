@@ -3,7 +3,7 @@ import subprocess
 import json
 import re
 
-f = open('data.json')
+f = open('Generated_Files/data.json')
  
 # returns JSON object as 
 # a dictionary
@@ -30,7 +30,7 @@ def time_str_to_seconds(time_str):
     return total_seconds
 
 
-def segment_video(response):
+def segment_video(response = data):
     for i, segment in enumerate(response):
         start_time = math.floor(float(time_str_to_seconds(segment.get("start_time", 0))))
         end_time = math.ceil(float(time_str_to_seconds(segment.get("end_time", 0)))) + 2
@@ -40,4 +40,4 @@ def segment_video(response):
         subprocess.call(command, shell=True)
     print("Segmentation complete.")
     
-segment_video(data)
+segment_video()
