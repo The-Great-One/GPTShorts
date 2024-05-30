@@ -3,3 +3,4 @@ output/*
 Generated_Files/*
 .DS_Store
 .venv/*
+__pycache__/*
