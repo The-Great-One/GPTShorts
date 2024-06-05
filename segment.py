@@ -25,14 +25,30 @@ def time_str_to_seconds(time_str):
 
 
 def segment_video():
-    f = open('Generated_Files/data.json')
-    response = json.load(f)
+    try:
+        with open('Generated_Files/data.json', 'r') as f:
+            response = json.load(f)
+    except Exception as e:
+        print(f"Error reading JSON file: {e}")
+        return
 
     for i, segment in enumerate(response):
-        start_time = math.floor(float(time_str_to_seconds(segment.get("start_time", 0))))
-        end_time = math.ceil(float(time_str_to_seconds(segment.get("end_time", 0)))) + 2
-        output_file = f"out/output{str(i).zfill(3)}.mp4"
-        command = f"ffmpeg -i Tate.mp4 -ss {start_time} -to {end_time} -c copy {output_file}"
-        print(f"Processing segment {i}: {command}")
-        subprocess.call(command, shell=True)
+        start_time = math.floor(float(time_str_to_seconds(segment.get("start_time", "0:00:00"))))
+        end_time = math.ceil(float(time_str_to_seconds(segment.get("end_time", "0:00:00")))) + 2
+        output_file = f"Output/{segment.get('title', f'Out_{i}')}.mp4"
+        
+        command = [
+            'ffmpeg',
+            '-i', 'Input/Input.mp4',
+            '-ss', str(start_time),
+            '-to', str(end_time),
+            '-c', 'copy',
+            output_file
+        ]
+        
+        print(f"Processing segment {i}: {' '.join(command)}")
+        try:
+            subprocess.check_call(command)
+        except subprocess.CalledProcessError as e:
+            print(f"Error processing segment {i}: {e}")
     print("Segmentation complete.")

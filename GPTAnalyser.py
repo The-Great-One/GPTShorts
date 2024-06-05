@@ -77,13 +77,9 @@ def GPT_Analyser():
     cleaned_data = []
     for item in all_timestamps:
         try:
-            item = item.replace("json", "").replace("```", "").strip()
-            # Ensure the string is properly formatted JSON
-            if item.startswith("[") and item.endswith("]"):
-                segments = ast.literal_eval(item)
-                cleaned_data.extend(segments)
-            else:
-                print(f"Skipping invalid JSON format: {item}")
+            item = item.replace("json", "").replace("```", "").replace("\n", "").replace("}{", "},{")       
+            segments = ast.literal_eval(item)
+            cleaned_data.extend(segments)
         except Exception as e:
             print(f"Error processing item: {item}, Error: {e}")
 
